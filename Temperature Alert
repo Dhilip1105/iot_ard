@@ -1,0 +1,34 @@
+#include <DHT.h>
+
+#define DHTPIN 2
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+int buzzer = 8;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(buzzer, OUTPUT);
+  dht.begin();
+}
+
+void loop()
+{
+  float temp = dht.readTemperature();
+
+  Serial.print("Temperature: ");
+  Serial.println(temp);
+
+  if(temp > 30)
+  {
+    digitalWrite(buzzer, HIGH);   // Alert ON
+  }
+  else
+  {
+    digitalWrite(buzzer, LOW);    // Alert OFF
+  }
+
+  delay(2000);
+}
