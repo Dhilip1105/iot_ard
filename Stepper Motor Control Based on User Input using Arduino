@@ -1,0 +1,27 @@
+#include <Stepper.h>
+
+const int stepsPerRevolution = 2048;
+
+Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
+
+void setup()
+{
+  Serial.begin(9600);
+  myStepper.setSpeed(10);
+
+  Serial.println("Enter number of steps:");
+}
+
+void loop()
+{
+  if (Serial.available() > 0)
+  {
+    int steps = Serial.parseInt();
+
+    myStepper.step(steps);
+
+    Serial.print("Motor rotated ");
+    Serial.print(steps);
+    Serial.println(" steps");
+  }
+}
